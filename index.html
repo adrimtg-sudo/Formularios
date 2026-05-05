@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de formularios</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            text-align: center;
+        }
+        #titulo {
+            text-align: center;
+        }
+        #caja {
+            border: 5px inset blue;
+            border-radius: 10px;
+            padding: 5px;
+            width: 40%; 
+            height: auto;           
+            display: flex;
+            margin-left: 30%;
+            align-items: center;
+            overflow: auto;
+        }
+        #imagen {
+            width: 200px;
+            height: 200px;
+            display: block;
+            margin-left: 25%;
+        }
+        #error {
+            color: red;
+        }
+    </style>
+    <script>
+        function validar() {
+            var user = document.getElementById("usuario").value;
+            var check = document.getElementById("checkbox");
+            var aviso = document.getElementById("error");
+            if (user.length < 5) {
+                aviso.innerHTML = "El usuario debe tener al menos 5 carácteres";
+                usuario.focus();
+                return false;
+            }
+            else if (!check.checked) {
+                aviso.innerHTML = "Debes aceptar los términos y condiciones";
+                check.focus();
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        function cambiaImagen() {
+            var producto = document.getElementById("producto");
+            var imagen = document.getElementById("imagen");
+            imagen.style.visibility = "visible";
+            if (producto.value == "elija") {
+                imagen.src = "images/flecha.png";
+            }
+            else if (producto.value == "ordenador") {
+                imagen.src = "images/ordenador.jpg";
+            }
+            else if (producto.value == "portatil") {
+                imagen.src = "images/portatil.jpg";
+            }
+            else if (producto.value == "tablet") {
+                imagen.src = "images/tablet.jpg";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1 id="titulo">Pedido</h1>
+    <div id="caja">
+        <form action="procesa.php" id="formulario" onsubmit="return validar()">
+            <label for="select">Producto</label>
+            <select name="producto" id="producto" onchange="cambiaImagen()">
+                <option value="elija">Elija producto</option>
+                <option value="ordenador">Ordenador</option>
+                <option value="portatil">Portátil</option>
+                <option value="tablet">Tablet</option>
+            </select>
+            <img id="imagen" width="200px" height="200px" src="images/flecha.png">
+            <label for="usuario">Usuario</label>
+            <input type="text" name="usuario" id="usuario"><br>
+            <input type="checkbox" id="checkbox">
+            <label for="checkbox">He leído y acepto los términos y condiciones.</label>
+            <input type="submit" name="submit" id="submit" value="Enviar">
+        </form>
+    </div><br>
+    <h3 id="error"></h3>
+</body>
+</html>
